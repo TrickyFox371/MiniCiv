@@ -28,4 +28,6 @@
 	- Добавление различных "реалистичных" механик типа научного/культурного развития.
 
 P.S. Все еще будет уточняться. Демонстрационная картинка интерфейса скелета:
-![Скелет интерфейса](https://github.com/Gor4i4ka/MiniCiv/tree/master/documentation/images/miniciv.jpg)
+<p align="center">
+  <img src="./documentation/images/miniciv.jpg" width="350" title="hover text">
+</p>
