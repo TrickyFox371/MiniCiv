@@ -29,5 +29,5 @@
 
 P.S. Все еще будет уточняться. Демонстрационная картинка интерфейса скелета:
 <p align="center">
-  <img src="./documentation/images/miniciv.jpg" width="350" title="hover text">
+  <img src="./documentation/images/miniciv.jpg" width="700" title="hover text">
 </p>
