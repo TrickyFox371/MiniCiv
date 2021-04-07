@@ -28,3 +28,4 @@
 	- Добавление различных "реалистичных" механик типа научного/культурного развития.
 
 P.S. Все еще будет уточняться.
+![alt text](https://github.com/Gor4i4ka/MiniCiv/tree/master/documentation/images/miniciv.jpg)
