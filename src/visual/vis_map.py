@@ -1,6 +1,6 @@
 from src.visual.vis_cell import vis_cell
 
-START_COORD = 50
+START_COORD = 60
 
 class vis_map:
     def __init__(self):
@@ -11,7 +11,7 @@ class vis_map:
     def set_size(self, x, y, img):
         self.x = x
         self.y = y
-        coord_x = START_COORD
+        coord_x = START_COORD + 5
         coord_y = START_COORD
         for i in range(0, x):
             list = []
@@ -22,9 +22,9 @@ class vis_map:
                 coord_x = coord_x + cell.x_size() * 3 // 2
                 list.append(cell)
             if i % 2 == 0:
-                coord_x = START_COORD * 2 // 3 + 1 + list[0].x_size()
+                coord_x = START_COORD * 2 // 3 + 9 + list[0].x_size()
             else:
-                coord_x = START_COORD
+                coord_x = START_COORD + 5
             coord_y = coord_y + list[0].y_size() // 2
             self.cells.append(list)
 
