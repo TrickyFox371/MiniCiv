@@ -30,4 +30,15 @@ class vis_frame(pg.sprite.Sprite):
         self.map.set_moving(False)
 
     def check_motion(self, rel):
-        self.map.move(rel)
+        if not ((rel[0] > 0 and self.map.get_cells()[0][0].vis_cell.rect.center[0] > self.rect.center[0]) or
+                (rel[1] > 0 and self.map.get_cells()[0][0].vis_cell.rect.center[1] > self.rect.center[1]) or
+
+                (rel[0] > 0 and self.map.get_cells()[-1][0].vis_cell.rect.center[0] > self.rect.center[0]) or
+                (rel[1] < 0 and self.map.get_cells()[-1][0].vis_cell.rect.center[1] < self.rect.center[1]) or
+
+                (rel[0] < 0 and self.map.get_cells()[0][-1].vis_cell.rect.center[0] < self.rect.center[0]) or
+                (rel[1] > 0 and self.map.get_cells()[0][-1].vis_cell.rect.center[1] > self.rect.center[1]) or
+
+                (rel[0] < 0 and self.map.get_cells()[-1][-1].vis_cell.rect.center[0] < self.rect.center[0]) or
+                (rel[1] < 0 and self.map.get_cells()[-1][-1].vis_cell.rect.center[1] < self.rect.center[1])):
+            self.map.move(rel)
