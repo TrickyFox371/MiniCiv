@@ -94,3 +94,74 @@ class vis_map:
     def in_bounds(self, cell_x, cell_y):
         return (0 <= cell_x < len(self.cells)
                 and 0 <= cell_y < len(self.cells[cell_x]))
+
+import pygame
+import os
+from src.country_stat import Country_stat
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+def generate_map(x: int, y: int, game_folder: str) -> vis_map:
+    cell_img = pygame.image.load(os.path.join(game_folder, 'res/hex1-res2.png')).convert()
+
+    gamemap = vis_map()
+    gamemap.set_size(x, y, cell_img)
+    gamemap.gen_terrain()
+
+    red_stat = Country_stat(RED)
+    blue_stat = Country_stat(BLUE)
+
+    red_capital_coords = (random.randint(1, x - 2), random.randint(1, y - 2))
+    blue_capital_coords = (random.randint(1, x - 2), random.randint(1, y - 2))
+    while -2 <= red_capital_coords[0] - blue_capital_coords[0] <= 2 and -2 <= red_capital_coords[1] - blue_capital_coords[1] <= 2:
+        blue_capital_coords = (random.randint(0, x - 1), random.randint(1, y - 2))
+    
+    red_stat.set_capital(red_capital_coords, gamemap)
+    blue_stat.set_capital(blue_capital_coords, gamemap)
+
+    red_stat.gen_unit_loc(3, 1, gamemap)
+    blue_stat.gen_unit_loc(3, 1, gamemap)
+
+# Water generation phase
+    banned_cells = set()
+    banned_cells.add(red_stat.get_capital())
+    banned_cells.add(blue_stat.get_capital())
+    for unit in red_stat.get_units():
+        banned_cells.add(unit.get_cell())
+    for unit in blue_stat.get_units():
+        banned_cells.add(unit.get_cell())
+    gamemap.gen_water(banned_cells)
+
+    townhall_img = pygame.image.load(os.path.join
+                                     (game_folder, 'res/townhall.png')).convert()
+    for building in red_stat.get_buildings():
+        building.add_vis_unit(townhall_img)
+        building_cell = building.get_cell()
+        gamemap.get_cells()[building_cell[0]][building_cell[1]].\
+            vis_cell.set_unit(building.vis_unit)
+        building.vis_unit.set_immovable(True)
+    for building in blue_stat.get_buildings():
+        building.add_vis_unit(townhall_img)
+        building_cell = building.get_cell()
+        gamemap.get_cells()[building_cell[0]][building_cell[1]].\
+            vis_cell.set_unit(building.vis_unit)
+        building.vis_unit.set_immovable(True)
+
+    spearman_img = pygame.image.load(os.path.join
+                                     (game_folder, 'res/spearman.png')).convert()
+    for unit in red_stat.get_units():
+        unit.add_vis_unit(spearman_img)
+        unit_cell = unit.get_cell()
+        gamemap.get_cells()[unit_cell[0]][unit_cell[1]].\
+            vis_cell.set_unit(unit.vis_unit)
+    for unit in blue_stat.get_units():
+        unit.add_vis_unit(spearman_img)
+        unit_cell = unit.get_cell()
+        gamemap.get_cells()[unit_cell[0]][unit_cell[1]].\
+            vis_cell.set_unit(unit.vis_unit)
+    return gamemap
+
