@@ -43,7 +43,7 @@ cell_img = pygame.image.load(os.path.join(game_folder, 'res/hex1-res2.png')).con
 cursor_img = pygame.image.load(os.path.join(game_folder, 'res/cursor1_rs2.png')).convert()
 
 gamemap = vis_map()
-gamemap.set_size(20, 7, cell_img)
+gamemap.set_size(30, 10, cell_img)
 gamemap.gen_terrain()
 
 cursor = vis_cursor(cursor_img)
@@ -157,8 +157,16 @@ while running:
     all_sprites.update()
 
     screen.fill(BLACK)
-    all_sprites.draw(screen)
     #reset_map_button.draw_text()
+    all_sprites.remove_sprites_of_layer(1)
+    all_sprites.remove_sprites_of_layer(2)
+    for line in gamemap.get_cells():
+        for cell in line:
+            if global_frame.rect.contains(cell.vis_cell.rect):
+                all_sprites.add(cell.vis_cell)
+                if cell.vis_cell.unit is not None:
+                    all_sprites.add(cell.vis_cell.unit)
+    all_sprites.draw(screen)
     pygame.display.flip()
 
 pygame.quit()
