@@ -18,7 +18,7 @@ class vis_button(pg.sprite.Sprite):
         if font is None:
             font = pg.freetype.SysFont('Comic Sans MS', 16)
         self.font = font
-        self.textsurface, _ = font.render(text, (0, 0, 0))
+        self.textsurface, _ = font.render(text, (1, 1, 1))
         self.image.blit(self.textsurface, (10, 25))
 
     def local_coords(self, point):
