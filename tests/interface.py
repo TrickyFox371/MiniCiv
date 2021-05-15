@@ -157,7 +157,6 @@ while running:
     all_sprites.update()
 
     screen.fill(BLACK)
-    #reset_map_button.draw_text()
     all_sprites.remove_sprites_of_layer(1)
     all_sprites.remove_sprites_of_layer(2)
     for line in gamemap.get_cells():
