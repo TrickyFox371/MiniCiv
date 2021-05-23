@@ -22,6 +22,9 @@ BLUE = (0, 0, 255)
 
 game_folder = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
+def end_turn():
+    global game_state
+    game_state.end_turn()
 
 def exit():
     global running
@@ -70,6 +73,7 @@ all_sprites.add(reset_map_button)
 
 button_img = pygame.image.load(os.path.join(game_folder, 'res/frame_button1.png')).convert()
 end_turn_button = vis_button(740, 180, 'End turn', button_img)
+end_turn_button.action = end_turn
 all_sprites.add(end_turn_button)
 
 button_img = pygame.image.load(os.path.join(game_folder, 'res/frame_button1.png')).convert()

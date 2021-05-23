@@ -13,6 +13,10 @@ class vis_cell(vis_object):
         self.unit = None
 
     def check_click(self, mouse):
+        ''' Assumption in this function:
+        1) The cells belongs to the map.
+        2) Map stores the global state
+        '''
         if self.rect.collidepoint(mouse) and self.mask.get_at(self.local_coords(mouse)) == 1:
             if self.unit is None:
                 x, y = self.map.get_coords(self)
@@ -24,7 +28,10 @@ class vis_cell(vis_object):
                         cell.vis_cell.set_unit(None)
                         break
             else:
-                self.unit.set_move(True)
+                game_state = self.map.get_gamestate()
+                if (self.unit.get_unit().get_country() ==
+                    game_state.get_turn()):
+                    self.unit.set_move(True)
             for line in self.map.get_cells():
                 for cell in line:
                     if cell.vis_cell.get_unit() is not None and cell.vis_cell != self:

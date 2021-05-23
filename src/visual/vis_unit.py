@@ -24,3 +24,12 @@ class vis_unit(vis_object):
 
     def set_immovable(self, immovable):
         self.immovable = immovable
+
+    def add_unit(self, unit):
+        ''' Adds the reference to the Unit class
+        '''
+        # Warning: Circular reference
+        self.unit = unit
+
+    def get_unit(self):
+        return self.unit

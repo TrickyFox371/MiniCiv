@@ -122,15 +122,29 @@ class vis_map:
         return (0 <= cell_x < len(self.cells)
                 and 0 <= cell_y < len(self.cells[cell_x]))
 
+    def set_gamestate(self, game_state):
+        self.game_state = game_state
 
-def generate_map(game_state: Game_state, x: int, y: int, game_folder: str) -> vis_map:
+    def get_gamestate(self):
+        return self.game_state
 
+    def end_turn(self):
+        pass
+
+
+def generate_map(game_state: Game_state,
+                 x: int, y: int, game_folder: str) -> vis_map:
+    '''
+    Currently assume that every map is generated via this function.
+    Any other map generation function must save the game state.
+    '''
     gamemap = vis_map()
     gamemap.set_size(x, y)
     gamemap.gen_terrain()
+    gamemap.set_gamestate(game_state)
 
-    red_stat = Country_stat(RED)
-    blue_stat = Country_stat(BLUE)
+    red_stat = Country_stat(RED, "red")
+    blue_stat = Country_stat(BLUE, "blue")
 
     red_capital_coords = (random.randint(1, x - 2), random.randint(1, y - 2))
     blue_capital_coords = (random.randint(1, x - 2), random.randint(1, y - 2))
@@ -146,6 +160,7 @@ def generate_map(game_state: Game_state, x: int, y: int, game_folder: str) -> vi
 
     game_state.add_country("red", red_stat)
     game_state.add_country("blue", blue_stat)
+    game_state.set_turn("red")
 # Water generation phase
     banned_cells = set()
     banned_cells.add(red_stat.get_capital())

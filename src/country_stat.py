@@ -5,8 +5,9 @@ from src.units.buildings.town_hall import Town_hall
 
 class Country_stat:
 
-    def __init__(self, color):
+    def __init__(self, color, name):
         self.color = color
+        self.name = name
         self.resources = 100
         self.capital = (-1, -1)
         self.buildings = []
@@ -51,6 +52,7 @@ class Country_stat:
 
             unit = Unit()
             unit.set_cell((spawn_loc[0], spawn_loc[1]))
+            unit.set_country(self.name)
             self.add_unit(unit)
 
     def add_unit(self, unit):
@@ -106,3 +108,6 @@ class Country_stat:
         for unit in self.units:
             income = income + unit.get_income()
         return income
+
+    def end_turn(self):
+        pass

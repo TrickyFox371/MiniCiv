@@ -9,6 +9,7 @@ class Unit:
         self.cur_hp = -1
         self.damage = -1
         self.income = -1
+        self.country = ""
         self.vis_unit = None
         self.possible_cells = set()
         self.produced_units = set()
@@ -43,6 +44,12 @@ class Unit:
     def get_income(self):
         return self.income
 
+    def set_country(self, country):
+        self.country = country
+
+    def get_country(self):
+        return self.country
+
     def add_possible_cell(self, cell):
         self.possible_cells.add(cell)
 
@@ -69,3 +76,7 @@ class Unit:
         Call this function to get the unit sprite
         '''
         self.vis_unit = vis_unit(unit_img)
+        # WARNING: Circular reference
+        # It is necessary, because Visual_unit borrows
+        # information from the Unit, such as country allegiance
+        self.vis_unit.add_unit(self)
