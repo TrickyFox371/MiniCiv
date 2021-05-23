@@ -39,6 +39,8 @@ class vis_unit(vis_object):
 
 
 def attack_unit(game_state, attacking_unit, defending_unit):
+    print(f"{attacking_unit.get_country()} unit attacked "
+          f"{defending_unit.get_country()} unit")
     attacking_unit.add_attack()
     defending_unit.set_hp_after_attack(game_state,
                                        attacking_unit)

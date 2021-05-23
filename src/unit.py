@@ -6,6 +6,12 @@ class Unit:
     1) No friendly fire
     2) A unit can attack once per turn
     3) A unit dies, if its hp is below zero
+
+    Movement rules:
+    1) A unit can traverse less or equal to their speed
+    number of cells
+    2) If a unit reached its limit, it can neither move,
+    nor attack.
     '''
 
     def __init__(self):
@@ -14,11 +20,13 @@ class Unit:
         self.cur_hp = -1
         self.damage = -1
         self.income = -1
+        self.speed = -1
         self.country = ""
         self.vis_unit = None
         self.possible_cells = set()
         self.produced_units = set()
         self.attacks = 0
+        self.traveled_cells = 0
 
     def set_cell(self, cell):
         self.cell = cell
@@ -65,6 +73,12 @@ class Unit:
     def get_income(self):
         return self.income
 
+    def set_speed(self, speed):
+        self.speed = speed
+
+    def get_speed(self):
+        return self.speed
+
     def set_country(self, country):
         self.country = country
 
@@ -108,5 +122,12 @@ class Unit:
     def get_attacks(self):
         return self.attacks
 
+    def add_traveled_cells(self):
+        self.traveled_cells += 1
+
+    def get_traveled_cells(self):
+        return self.traveled_cells
+
     def end_turn(self):
         self.attacks = 0
+        self.traveled_cells = 0

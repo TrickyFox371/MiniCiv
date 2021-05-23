@@ -25,6 +25,7 @@ class vis_cell(vis_object):
                     if cell.vis_cell.get_unit() is not None and cell.vis_cell.get_unit().moving() is True\
                             and cell.vis_cell.get_unit().is_immovable() is False:
                         self.set_unit(cell.vis_cell.get_unit())
+                        self.get_unit().get_unit().add_traveled_cells()
                         self.get_unit().get_unit().set_cell((x, y))
                         self.unit.set_move(False)
                         cell.vis_cell.set_unit(None)
@@ -33,7 +34,12 @@ class vis_cell(vis_object):
                 game_state = self.map.get_gamestate()
                 if (self.unit.get_unit().get_country() ==
                    game_state.get_turn()):
-                    self.unit.set_move(True)
+                    if (self.unit.get_unit().get_traveled_cells() <
+                       self.unit.get_unit().get_speed()):
+                        self.unit.set_move(True)
+                    else:
+                        print(f"{self.unit.get_unit().get_country()} unit "
+                              "can't move")
                 else:
                     # Maybe other unit is attacking this
                     for cell in self.map.neighbours(x, y):
@@ -43,10 +49,13 @@ class vis_cell(vis_object):
                            game_state.get_turn()):
                             defending_unit = self.unit
                             attacking_unit = cell.vis_cell.get_unit()
+
                             if attacking_unit.get_unit().get_attacks() < 1:
                                 attack_unit(game_state,
                                             attacking_unit.get_unit(),
                                             defending_unit.get_unit())
+                            else:
+                                print("Unit can't attack")
                             attacking_unit.set_move(False)
                             break
 

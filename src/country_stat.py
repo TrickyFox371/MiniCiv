@@ -57,6 +57,7 @@ class Country_stat:
             unit.set_damage(2)
             unit.set_hp(10)
             unit.set_income(-5)
+            unit.set_speed(3)
             self.add_unit(unit)
 
     def add_unit(self, unit):
