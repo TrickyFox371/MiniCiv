@@ -3,6 +3,7 @@ import pygame
 import os
 from src.cell import Cell
 from src.country_stat import Country_stat
+from src.game_state import Game_state
 
 START_COORD = 60
 WATER_PERCENTAGE = 5
@@ -122,7 +123,7 @@ class vis_map:
                 and 0 <= cell_y < len(self.cells[cell_x]))
 
 
-def generate_map(x: int, y: int, game_folder: str) -> vis_map:
+def generate_map(game_state: Game_state, x: int, y: int, game_folder: str) -> vis_map:
 
     gamemap = vis_map()
     gamemap.set_size(x, y)
@@ -143,6 +144,8 @@ def generate_map(x: int, y: int, game_folder: str) -> vis_map:
     red_stat.gen_unit_loc(3, 1, gamemap)
     blue_stat.gen_unit_loc(3, 1, gamemap)
 
+    game_state.add_country("red", red_stat)
+    game_state.add_country("blue", blue_stat)
 # Water generation phase
     banned_cells = set()
     banned_cells.add(red_stat.get_capital())

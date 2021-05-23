@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.normpath(os.path.join
                 (os.path.dirname(os.path.abspath(__file__)), '..')))
 
+from src.game_state import Game_state
 from src.visual.vis_cursor import vis_cursor
 from src.visual.vis_map import generate_map
 from src.visual.vis_button import vis_button
@@ -28,14 +29,14 @@ def exit():
 
 
 def reset_map():
-    global gamemap
+    global game_state
     global game_folder
-    gamemap = generate_map(30, 10, game_folder)
+    game_state.set_gamemap(generate_map(game_state, 20, 7, game_folder))
     global global_frame
-    global_frame.map = gamemap
+    global_frame.map = game_state.get_gamemap()
     all_sprites.remove_sprites_of_layer(1)
     all_sprites.remove_sprites_of_layer(2)
-    for line in gamemap.get_cells():
+    for line in game_state.get_gamemap().get_cells():
         for cell in line:
             all_sprites.add(cell.vis_cell)
             if cell.vis_cell.unit is not None:
@@ -58,7 +59,9 @@ cursor = vis_cursor(cursor_img)
 
 all_sprites.add(cursor)
 
-gamemap = generate_map(30, 10, game_folder)
+game_state = Game_state()
+# TODO: Implement map scrolling
+game_state.set_gamemap(generate_map(game_state, 20, 7, game_folder))
 
 button_img = pygame.image.load(os.path.join(game_folder, 'res/frame_button1.png')).convert()
 reset_map_button = vis_button(740, 50, 'Reset map', button_img)
@@ -78,7 +81,7 @@ blue_score_button = vis_button(740, 310, 'Blue Score', button_img)
 all_sprites.add(blue_score_button)
 
 frame_img = pygame.image.load(os.path.join(game_folder, 'res/frame_global5.png')).convert()
-global_frame = vis_frame(360, 325, frame_img, gamemap)
+global_frame = vis_frame(360, 325, frame_img, game_state.get_gamemap())
 all_sprites.add(global_frame)
 
 running = True
@@ -89,7 +92,7 @@ exit_button = vis_button(740, 115, 'Exit', button_img)
 exit_button.action = exit
 all_sprites.add(exit_button)
 
-for line in gamemap.get_cells():
+for line in game_state.get_gamemap().get_cells():
     for cell in line:
         all_sprites.add(cell.vis_cell)
         if cell.vis_cell.unit is not None:
