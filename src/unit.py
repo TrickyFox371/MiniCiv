@@ -46,7 +46,8 @@ class Unit:
             '''
             gamemap = game_state.get_gamemap()
             self.vis_unit.kill()
-            # Redraw an entire unit layer to delete the sprite
+            unit_country = game_state.get_countries()[self.country]
+            unit_country.get_units().remove(self)
             game_state.get_sprites().remove(self.vis_unit)
             gamemap.get_cells()[self.cell[0]][self.cell[1]].\
                 vis_cell.set_unit(None)

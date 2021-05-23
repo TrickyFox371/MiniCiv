@@ -56,6 +56,7 @@ class Country_stat:
             unit.set_country(self.name)
             unit.set_damage(2)
             unit.set_hp(10)
+            unit.set_income(-5)
             self.add_unit(unit)
 
     def add_unit(self, unit):
@@ -110,6 +111,8 @@ class Country_stat:
         income = 0
         for unit in self.units:
             income = income + unit.get_income()
+        for building in self.buildings:
+            income = income + building.get_income()
         return income
 
     def end_turn(self):
@@ -117,3 +120,4 @@ class Country_stat:
             unit.end_turn()
         for building in self.buildings:
             building.end_turn()
+        self.change_resources(self.get_income())

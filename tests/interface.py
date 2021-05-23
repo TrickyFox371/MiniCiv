@@ -1,6 +1,10 @@
 import pygame
 import os
 import sys
+from tkinter import (
+                     Tk,
+                     messagebox
+                    )
 sys.path.append(os.path.normpath(os.path.join
                 (os.path.dirname(os.path.abspath(__file__)), '..')))
 
@@ -21,6 +25,16 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 game_folder = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+
+
+def create_messagebox(title, text):
+    # WARNING: This messagebox gets the cursor out of
+    # the pygame focus. Buttons become unavailable,
+    # till you click on the pygame window again.
+    root = Tk()
+    root.withdraw()
+    messagebox.showinfo(title, text)
+    root.destroy()
 
 
 def end_turn():
@@ -48,6 +62,21 @@ def reset_map():
                 all_sprites.add(cell.vis_cell.unit)
     game_state.set_sprites(all_sprites)
 
+
+def show_red_score():
+    red_resources = game_state.get_countries()["red"].get_resources()
+    create_messagebox("OK",
+                      f"Red resources: {red_resources}\n")
+
+
+def show_blue_score():
+    blue_resources = game_state.get_countries()["blue"].get_resources()
+    create_messagebox("OK",
+                      f"Blue resources: {blue_resources}\n")
+
+
+# Use Tkinter for the messagebox
+Tk().wm_withdraw()
 
 pygame.init()
 pygame.font.init()
@@ -81,10 +110,12 @@ all_sprites.add(end_turn_button)
 
 button_img = pygame.image.load(os.path.join(game_folder, 'res/frame_button1.png')).convert()
 red_score_button = vis_button(740, 245, 'Red Score', button_img)
+red_score_button.action = show_red_score
 all_sprites.add(red_score_button)
 
 button_img = pygame.image.load(os.path.join(game_folder, 'res/frame_button1.png')).convert()
 blue_score_button = vis_button(740, 310, 'Blue Score', button_img)
+blue_score_button.action = show_blue_score
 all_sprites.add(blue_score_button)
 
 frame_img = pygame.image.load(os.path.join(game_folder, 'res/frame_global5.png')).convert()
