@@ -2,6 +2,11 @@ from src.visual.vis_unit import vis_unit
 
 
 class Unit:
+    ''' Attack rules:
+    1) No friendly fire
+    2) A unit can attack once per turn
+    3) A unit dies, if its hp is below zero
+    '''
 
     def __init__(self):
         self.cell = -1
@@ -13,6 +18,7 @@ class Unit:
         self.vis_unit = None
         self.possible_cells = set()
         self.produced_units = set()
+        self.attacks = 0
 
     def set_cell(self, cell):
         self.cell = cell
@@ -22,6 +28,7 @@ class Unit:
 
     def set_hp(self, hp):
         self.hp = hp
+        self.cur_hp = hp
 
     def get_hp(self):
         return self.hp
@@ -31,6 +38,19 @@ class Unit:
 
     def get_cur_hp(self):
         return self.cur_hp
+
+    def set_hp_after_attack(self, game_state, attacking_unit):
+        self.cur_hp -= attacking_unit.get_damage()
+        if self.cur_hp <= 0:
+            ''' Dead unit disappears from the map
+            '''
+            gamemap = game_state.get_gamemap()
+            self.vis_unit.kill()
+            # Redraw an entire unit layer to delete the sprite
+            game_state.get_sprites().remove(self.vis_unit)
+            gamemap.get_cells()[self.cell[0]][self.cell[1]].\
+                vis_cell.set_unit(None)
+            self.vis_unit = None
 
     def set_damage(self, damage):
         self.damage = damage
@@ -80,3 +100,12 @@ class Unit:
         # It is necessary, because Visual_unit borrows
         # information from the Unit, such as country allegiance
         self.vis_unit.add_unit(self)
+
+    def add_attack(self):
+        self.attacks += 1
+
+    def get_attacks(self):
+        return self.attacks
+
+    def end_turn(self):
+        self.attacks = 0

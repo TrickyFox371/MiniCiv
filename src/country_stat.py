@@ -19,6 +19,7 @@ class Country_stat:
         self.capital = capital_coords
         town_hall = Town_hall()
         town_hall.set_cell(self.capital)
+        town_hall.set_country(self.name)
         self.add_building(town_hall)
 
     def get_capital(self):
@@ -53,6 +54,8 @@ class Country_stat:
             unit = Unit()
             unit.set_cell((spawn_loc[0], spawn_loc[1]))
             unit.set_country(self.name)
+            unit.set_damage(2)
+            unit.set_hp(10)
             self.add_unit(unit)
 
     def add_unit(self, unit):
@@ -110,4 +113,7 @@ class Country_stat:
         return income
 
     def end_turn(self):
-        pass
+        for unit in self.units:
+            unit.end_turn()
+        for building in self.buildings:
+            building.end_turn()

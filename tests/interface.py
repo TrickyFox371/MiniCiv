@@ -22,9 +22,11 @@ BLUE = (0, 0, 255)
 
 game_folder = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
+
 def end_turn():
     global game_state
     game_state.end_turn()
+
 
 def exit():
     global running
@@ -44,6 +46,7 @@ def reset_map():
             all_sprites.add(cell.vis_cell)
             if cell.vis_cell.unit is not None:
                 all_sprites.add(cell.vis_cell.unit)
+    game_state.set_sprites(all_sprites)
 
 
 pygame.init()
@@ -102,6 +105,8 @@ for line in game_state.get_gamemap().get_cells():
         if cell.vis_cell.unit is not None:
             all_sprites.add(cell.vis_cell.unit)
 
+game_state.set_sprites(all_sprites)
+
 while running:
     clock.tick(FPS)
 
@@ -126,10 +131,10 @@ while running:
                 for sprite in all_sprites:
                     sprite.check_right_release(event.pos)
 
-    all_sprites.update()
+    game_state.get_sprites().update()
 
     screen.fill(BLACK)
-    all_sprites.draw(screen)
+    game_state.get_sprites().draw(screen)
     pygame.display.flip()
 
 pygame.quit()

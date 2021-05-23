@@ -4,6 +4,9 @@ BLACK = (0, 0, 0)
 
 
 class vis_unit(vis_object):
+    ''' Attacking is a type of movement.
+    Immovable objects can't attack, they can only defend.
+    '''
     def __init__(self, unit_img):
         vis_object.__init__(self, 0, 0, unit_img)
         self.move = False
@@ -33,3 +36,12 @@ class vis_unit(vis_object):
 
     def get_unit(self):
         return self.unit
+
+
+def attack_unit(game_state, attacking_unit, defending_unit):
+    attacking_unit.add_attack()
+    defending_unit.set_hp_after_attack(game_state,
+                                       attacking_unit)
+    if defending_unit.get_cur_hp() > 0:
+        attacking_unit.set_hp_after_attack(game_state,
+                                           defending_unit)

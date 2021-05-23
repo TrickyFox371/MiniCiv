@@ -1,5 +1,6 @@
 import pygame
 from src.visual.vis_object import vis_object
+from src.visual.vis_unit import attack_unit
 
 BLACK = (0, 0, 0)
 
@@ -18,23 +19,41 @@ class vis_cell(vis_object):
         2) Map stores the global state
         '''
         if self.rect.collidepoint(mouse) and self.mask.get_at(self.local_coords(mouse)) == 1:
+            x, y = self.map.get_coords(self)
             if self.unit is None:
-                x, y = self.map.get_coords(self)
                 for cell in self.map.neighbours(x, y):
                     if cell.vis_cell.get_unit() is not None and cell.vis_cell.get_unit().moving() is True\
                             and cell.vis_cell.get_unit().is_immovable() is False:
                         self.set_unit(cell.vis_cell.get_unit())
+                        self.get_unit().get_unit().set_cell((x, y))
                         self.unit.set_move(False)
                         cell.vis_cell.set_unit(None)
                         break
             else:
                 game_state = self.map.get_gamestate()
                 if (self.unit.get_unit().get_country() ==
-                    game_state.get_turn()):
+                   game_state.get_turn()):
                     self.unit.set_move(True)
+                else:
+                    # Maybe other unit is attacking this
+                    for cell in self.map.neighbours(x, y):
+                        if (cell.vis_cell.get_unit() is not None and
+                           cell.vis_cell.get_unit().moving() is True and
+                           cell.vis_cell.get_unit().get_unit().get_country() ==
+                           game_state.get_turn()):
+                            defending_unit = self.unit
+                            attacking_unit = cell.vis_cell.get_unit()
+                            if attacking_unit.get_unit().get_attacks() < 1:
+                                attack_unit(game_state,
+                                            attacking_unit.get_unit(),
+                                            defending_unit.get_unit())
+                            attacking_unit.set_move(False)
+                            break
+
             for line in self.map.get_cells():
                 for cell in line:
-                    if cell.vis_cell.get_unit() is not None and cell.vis_cell != self:
+                    if (cell.vis_cell.get_unit() is not None and
+                       cell.vis_cell != self):
                         cell.vis_cell.get_unit().set_move(False)
 
     def x_size(self):
