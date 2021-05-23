@@ -6,6 +6,7 @@ class Unit:
     1) No friendly fire
     2) A unit can attack once per turn
     3) A unit dies, if its hp is below zero
+    4) A building doesn't attack, but can defend.
 
     Movement rules:
     1) A unit can traverse less or equal to their speed
@@ -20,7 +21,7 @@ class Unit:
         self.cur_hp = -1
         self.damage = -1
         self.income = -1
-        self.speed = -1
+        self.speed = 1
         self.country = ""
         self.vis_unit = None
         self.possible_cells = set()
@@ -55,7 +56,10 @@ class Unit:
             gamemap = game_state.get_gamemap()
             self.vis_unit.kill()
             unit_country = game_state.get_countries()[self.country]
-            unit_country.get_units().remove(self)
+            if self in unit_country.get_units():
+                unit_country.get_units().remove(self)
+            elif self in unit_country.get_buildings():
+                unit_country.get_buildings().remove(self)
             game_state.get_sprites().remove(self.vis_unit)
             gamemap.get_cells()[self.cell[0]][self.cell[1]].\
                 vis_cell.set_unit(None)

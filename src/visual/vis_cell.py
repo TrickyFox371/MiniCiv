@@ -33,7 +33,8 @@ class vis_cell(vis_object):
             else:
                 game_state = self.map.get_gamestate()
                 if (self.unit.get_unit().get_country() ==
-                   game_state.get_turn()):
+                   game_state.get_turn() and
+                   self.unit.is_immovable() is False):
                     if (self.unit.get_unit().get_traveled_cells() <
                        self.unit.get_unit().get_speed()):
                         self.unit.set_move(True)
