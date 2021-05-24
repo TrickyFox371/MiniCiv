@@ -48,6 +48,7 @@ class Game:
 
         self.game_state = Game_state()
         self.game_state.set_gamemap(generate_map(self.game_state, 20, 7, self.game_folder))
+        self.colors = {'red': BLUE, 'blue' : RED}
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
         self.reset_map_button = vis_button(740, 50, 'Reset map', button_img)
@@ -129,9 +130,14 @@ class Game:
                 all_sprites.add(cell.vis_cell)
                 if cell.vis_cell.unit is not None:
                     all_sprites.add(cell.vis_cell.unit)
-        master.game_state.set_sprites(all_sprites)
         master.turn = 0
         master.turn_button.set_text("Red turn")
+        # return frame to its original state after possible win
+        all_sprites.remove_sprites_of_layer(3);
+        frame_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_global5.png')).convert()
+        self.global_frame = vis_frame(360, 325, frame_img, self.game_state.get_gamemap())
+        all_sprites.add(self.global_frame)
+        master.game_state.set_sprites(all_sprites)
 
     def do_nothing(self, master):
         '''
@@ -169,6 +175,11 @@ class Game:
                     if event.button == 3:
                         for sprite in all_sprites:
                             sprite.check_right_release(event.pos, self)
+
+            countries = self.game_state.get_countries()
+            for country in countries:
+                if len(countries[country].get_buildings()) == 0:
+                    self.global_frame.set_text(country + ' defeated!', self.colors[country])
 
             self.game_state.get_sprites().update()
 

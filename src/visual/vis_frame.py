@@ -1,4 +1,5 @@
 from src.visual.vis_object import vis_object
+import pygame.freetype
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -29,3 +30,11 @@ class vis_frame(vis_object):
                 (rel[0] < 0 and self.map.get_cells()[-1][-1].vis_cell.rect.center[0] < self.rect.center[0]) or
                 (rel[1] < 0 and self.map.get_cells()[-1][-1].vis_cell.rect.center[1] < self.rect.center[1])):
             self.map.move(rel)
+
+    def set_text(self, text, color):
+        coords = (120, 325)
+        font = pygame.freetype.SysFont('Comic Sans MS', 96)
+        label, _ = font.render(text, 0, WHITE)
+        self.image.blit(label, coords)
+        self.textsurface, _ = font.render(text, color)
+        self.image.blit(self.textsurface, coords)
