@@ -109,6 +109,8 @@ class Game:
                 if cell.vis_cell.unit is not None:
                     all_sprites.add(cell.vis_cell.unit)
         master.game_state.set_sprites(all_sprites)
+        master.turn = 0
+        master.turn_button.set_text("Red turn")
 
     def do_nothing(self, master):
         pass
