@@ -13,7 +13,7 @@ class vis_cell(vis_object):
         self.count = 0
         self.unit = None
 
-    def check_click(self, mouse):
+    def check_click(self, mouse, master = None):
         ''' Assumption in this function:
         1) The cells belongs to the map.
         2) Map stores the global state

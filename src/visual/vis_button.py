@@ -17,11 +17,14 @@ class vis_button(vis_object):
         self.textsurface, _ = font.render(text, (1, 1, 1))
         self.image.blit(self.textsurface, (10, 25))
 
-    def check_click(self, mouse):
+    def check_click(self, mouse, master = None):
         if self.rect.collidepoint(mouse) and self.mask.get_at(self.local_coords(mouse)) == 1:
-            self.action()
+            if master is not None:
+                self.action(master)
+            else:
+                self.action()
 
-    def action(self):
+    def action(self, master = None):
         print('NOT IMPLEMENTED YET')
 
     def draw_text(self):

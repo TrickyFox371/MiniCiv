@@ -10,13 +10,13 @@ class vis_frame(vis_object):
         self.map = game_map
         self._layer = 3
 
-    def check_right_click(self, mouse):
+    def check_right_click(self, mouse, master = None):
         self.map.set_moving(True)
 
-    def check_right_release(self, mouse):
+    def check_right_release(self, mouse, master = None):
         self.map.set_moving(False)
 
-    def check_motion(self, rel):
+    def check_motion(self, rel, master = None):
         if not ((rel[0] > 0 and self.map.get_cells()[0][0].vis_cell.rect.center[0] > self.rect.center[0]) or
                 (rel[1] > 0 and self.map.get_cells()[0][0].vis_cell.rect.center[1] > self.rect.center[1]) or
 
