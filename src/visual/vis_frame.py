@@ -32,6 +32,10 @@ class vis_frame(vis_object):
             self.map.move(rel)
 
     def set_text(self, text, color):
+        '''
+        Render the text over the center of frame.
+        It is used to write defeat messages.
+        '''
         coords = (120, 325)
         font = pygame.freetype.SysFont('Comic Sans MS', 96)
         label, _ = font.render(text, 0, WHITE)

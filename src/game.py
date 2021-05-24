@@ -175,7 +175,7 @@ class Game:
                     if event.button == 3:
                         for sprite in all_sprites:
                             sprite.check_right_release(event.pos, self)
-
+            # If one side has been defeated show the message about that above map
             countries = self.game_state.get_countries()
             for country in countries:
                 if len(countries[country].get_buildings()) == 0:
