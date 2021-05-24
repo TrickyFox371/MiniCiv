@@ -16,6 +16,18 @@ BLUE = (0, 0, 255)
 
 class Game:
     def __init__(self, width, height, fps):
+        '''
+        Initialize common game context. The game context consists of:
+         * game_folder == folder with game resources;
+         * clock;
+         * fps == fps for clock;
+         * screen == main screen to where everything blits;
+         * game_state == specific game context;
+         * reset_map, end_turn, both scores, turn and exit buttons;
+         * turn == the number of turns already taken.
+        '''
+        # For now objects' placing assumes 800x650 screen
+        # TODO: support custom screen
         self.game_folder = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
         self.fps = fps
         pygame.init()
@@ -83,6 +95,9 @@ class Game:
         self.turn = 0
 
     def end_turn(self, master):
+        '''
+        End current turn and start the next one.
+        '''
         master.game_state.end_turn()
         red_resources = master.game_state.get_countries()["red"].get_resources()
         master.red_score_button.set_text(f"Red: {red_resources}")
@@ -95,9 +110,15 @@ class Game:
         master.turn = master.turn + 1
 
     def exit(self, master):
+        '''
+        Stop the game.
+        '''
         self.running = False
 
     def reset_map(self, master):
+        '''
+        Start the game from the beginning.
+        '''
         master.game_state.set_gamemap(generate_map(master.game_state, 20, 7, master.game_folder))
         master.global_frame.map = master.game_state.get_gamemap()
         all_sprites = master.game_state.get_sprites()
@@ -113,9 +134,18 @@ class Game:
         master.turn_button.set_text("Red turn")
 
     def do_nothing(self, master):
+        '''
+        Don't do anything.
+        '''
         pass
 
     def mainloop(self):
+        '''
+        The main function that implements the process of the game.
+        Ticks clock, for every tick checks events that take place.
+        For every sprite calls its handler of the actual event.
+        Redraw screen and continue iterations.
+        '''
         while self.running:
             self.clock.tick(self.fps)
             all_sprites = self.game_state.get_sprites()
@@ -147,4 +177,7 @@ class Game:
             pygame.display.flip()
 
     def quit(self):
+        '''
+        Completely kill the game.
+        '''
         pygame.quit()
