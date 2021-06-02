@@ -1,0 +1,78 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-06-02 19:28+0300\n"
+"PO-Revision-Date: 2021-06-02 18:14+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: src/game.py:41
+msgid "MiniCiv"
+msgstr "МиниЦивилизация"
+
+#: src/game.py:57
+msgid "Reset map"
+msgstr "Сначала"
+
+#: src/game.py:62
+msgid "End turn"
+msgstr ""
+"Окончить\n"
+" ход"
+
+#: src/game.py:67 src/game.py:107 src/game.py:138
+msgid "Red: "
+msgstr "Красный:\n"
+
+#: src/game.py:72 src/game.py:109 src/game.py:139
+msgid "Blue: "
+msgstr "Синий:\n"
+
+#: src/game.py:77 src/game.py:113 src/game.py:137
+msgid "Red turn"
+msgstr ""
+"Ход\n"
+"красного"
+
+#: src/game.py:88
+msgid "Exit"
+msgstr "Выйти"
+
+#: src/game.py:111
+msgid "Blue turn"
+msgstr ""
+"Ход\n"
+"синего"
+
+#: src/game.py:191
+msgid ""
+"Blue is\n"
+"defeated!"
+msgstr ""
+"Синий\n"
+"побеждён!"
+
+#: src/game.py:193
+msgid ""
+"Red is\n"
+"defeated!"
+msgstr ""
+"Красный\n"
+"побеждён!"
+
+#~ msgid "Red"
+#~ msgstr "Красный"
+

@@ -1,0 +1,63 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-06-02 19:28+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: src/game.py:41
+msgid "MiniCiv"
+msgstr ""
+
+#: src/game.py:57
+msgid "Reset map"
+msgstr ""
+
+#: src/game.py:62
+msgid "End turn"
+msgstr ""
+
+#: src/game.py:67 src/game.py:107 src/game.py:138
+msgid "Red: "
+msgstr ""
+
+#: src/game.py:72 src/game.py:109 src/game.py:139
+msgid "Blue: "
+msgstr ""
+
+#: src/game.py:77 src/game.py:113 src/game.py:137
+msgid "Red turn"
+msgstr ""
+
+#: src/game.py:88
+msgid "Exit"
+msgstr ""
+
+#: src/game.py:111
+msgid "Blue turn"
+msgstr ""
+
+#: src/game.py:191
+msgid ""
+"Blue is\n"
+"defeated!"
+msgstr ""
+
+#: src/game.py:193
+msgid ""
+"Red is\n"
+"defeated!"
+msgstr ""
+

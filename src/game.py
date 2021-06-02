@@ -1,11 +1,13 @@
 import pygame
 import os
 import sys
+import gettext
 from src.game_state import Game_state
 from src.visual.vis_cursor import vis_cursor
 from src.visual.vis_map import generate_map
 from src.visual.vis_button import vis_button
 from src.visual.vis_frame import vis_frame
+
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -13,6 +15,7 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+gettext.install('game', os.path.join(os.path.dirname(os.path.abspath(__file__)), '../res/po'))
 
 class Game:
     def __init__(self, width, height, fps):
@@ -35,7 +38,7 @@ class Game:
         pygame.mixer.init()
         pygame.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
         self.screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption("MiniCiv")
+        pygame.display.set_caption(_("MiniCiv"))
         self.clock = pygame.time.Clock()
 
         all_sprites = pygame.sprite.LayeredUpdates()
@@ -51,27 +54,27 @@ class Game:
         self.colors = {'red': BLUE, 'blue' : RED}
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
-        self.reset_map_button = vis_button(740, 50, 'Reset map', button_img)
+        self.reset_map_button = vis_button(740, 50, _('Reset map'), button_img)
         self.reset_map_button.action = self.reset_map
         all_sprites.add(self.reset_map_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
-        self.end_turn_button = vis_button(740, 180, 'End turn', button_img)
+        self.end_turn_button = vis_button(740, 180, _('End turn'), button_img)
         self.end_turn_button.action = self.end_turn
         all_sprites.add(self.end_turn_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
-        self.red_score_button = vis_button(740, 245, 'Red: 100', button_img)
+        self.red_score_button = vis_button(740, 245, _('Red: ') + '100', button_img)
         self.red_score_button.action = self.do_nothing
         all_sprites.add(self.red_score_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
-        self.blue_score_button = vis_button(740, 310, 'Blue: 100', button_img)
+        self.blue_score_button = vis_button(740, 310, _('Blue: ') + '100', button_img)
         self.blue_score_button.action = self.do_nothing
         all_sprites.add(self.blue_score_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
-        self.turn_button = vis_button(740, 375, 'Red turn', button_img, RED)
+        self.turn_button = vis_button(740, 375, _('Red turn'), button_img, RED)
         self.turn_button.action = self.do_nothing
         all_sprites.add(self.turn_button)
 
@@ -82,7 +85,7 @@ class Game:
         self.running = True
 
         button_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_button1.png')).convert()
-        self.exit_button = vis_button(740, 115, 'Exit', button_img)
+        self.exit_button = vis_button(740, 115, _('Exit'), button_img)
         self.exit_button.action = self.exit
         all_sprites.add(self.exit_button)
 
@@ -101,13 +104,13 @@ class Game:
         '''
         master.game_state.end_turn()
         red_resources = master.game_state.get_countries()["red"].get_resources()
-        master.red_score_button.set_text(f"Red: {red_resources}")
+        master.red_score_button.set_text(_("Red: ") + f"{red_resources}")
         blue_resources = master.game_state.get_countries()["blue"].get_resources()
-        master.blue_score_button.set_text(f"Blue: {blue_resources}")
+        master.blue_score_button.set_text(_("Blue: ") + f"{blue_resources}")
         if master.turn % 2 == 0:
-            master.turn_button.set_text("Blue turn", BLUE)
+            master.turn_button.set_text(_("Blue turn"), BLUE)
         else:
-            master.turn_button.set_text("Red turn", RED)
+            master.turn_button.set_text(_("Red turn"), RED)
         master.turn = master.turn + 1
 
     def exit(self, master):
@@ -131,9 +134,9 @@ class Game:
                 if cell.vis_cell.unit is not None:
                     all_sprites.add(cell.vis_cell.unit)
         master.turn = 0
-        master.turn_button.set_text("Red turn", RED)
-        master.red_score_button.set_text("Red: 100")
-        master.blue_score_button.set_text("Blue: 100")
+        master.turn_button.set_text(_("Red turn"), RED)
+        master.red_score_button.set_text(_("Red: ") + "100")
+        master.blue_score_button.set_text(_("Blue: ") + "100")
         # return frame to its original state after possible win
         all_sprites.remove_sprites_of_layer(3);
         frame_img = pygame.image.load(os.path.join(self.game_folder, 'res/frame_global5.png')).convert()
@@ -181,9 +184,10 @@ class Game:
                             sprite.check_right_release(event.pos, self)
             # If one side has been defeated show the message about that above map
             countries = self.game_state.get_countries()
-            for country in countries:
-                if len(countries[country].get_buildings()) == 0 or countries[country].get_resources() < 0:
-                    self.global_frame.set_text(country + ' defeated!', self.colors[country])
+            if len(countries['blue'].get_buildings()) == 0 or countries['blue'].get_resources() < 0:
+                self.global_frame.set_text(_("Blue is\ndefeated!"), self.colors['blue'])
+            if len(countries['red'].get_buildings()) == 0 or countries['red'].get_resources() < 0:
+                self.global_frame.set_text(_("Red is\ndefeated!"), self.colors['red'])
 
             self.game_state.get_sprites().update()
 
