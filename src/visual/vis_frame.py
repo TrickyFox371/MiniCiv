@@ -38,7 +38,9 @@ class vis_frame(vis_object):
         '''
         coords = (120, 325)
         font = pygame.freetype.SysFont('Comic Sans MS', 96)
-        label, _ = font.render(text, 0, WHITE)
-        self.image.blit(label, coords)
-        self.textsurface, _ = font.render(text, color)
-        self.image.blit(self.textsurface, coords)
+        linestep = font.get_sized_height()
+        for i, txt in enumerate(text.split('\n')):
+            label, _ = font.render(txt, 0, WHITE)
+            self.image.blit(label, (coords[0], coords[1] + i * linestep))
+            self.textsurface, _ = font.render(txt, color)
+            self.image.blit(self.textsurface, (coords[0], coords[1] + i * linestep))
