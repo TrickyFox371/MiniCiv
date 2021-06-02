@@ -38,7 +38,7 @@ class Game_state:
 
     def get_turn(self):
         return self.player_turn
-    
+
     def end_turn(self):
         self.countries[self.player_turn].end_turn()
         for player_idx, country in enumerate(self.player_order):
@@ -49,7 +49,7 @@ class Game_state:
                     self.player_turn = self.player_order[player_idx + 1]
                 break
         self.gamemap.end_turn()
-    
+
     def set_sprites(self, sprites):
         self.sprites = sprites
 

@@ -15,19 +15,19 @@ class vis_object(pg.sprite.Sprite):
     def local_coords(self, point):
         return point[0] - self.rect.left, point[1] - self.rect.top
 
-    def check_click(self, mouse, master = None):
+    def check_click(self, mouse, master=None):
         pass
 
-    def check_right_click(self, mouse, master = None):
+    def check_right_click(self, mouse, master=None):
         pass
 
-    def check_right_release(self, mouse, master = None):
+    def check_right_release(self, mouse, master=None):
         pass
 
-    def check_motion(self, rel, master = None):
+    def check_motion(self, rel, master=None):
         pass
 
-    def check(self, master = None):
+    def check(self, master=None):
         pass
 
     def update_image(self, img):

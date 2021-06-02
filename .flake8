@@ -1,0 +1,7 @@
+[flake8]
+
+builtins = _, ngettext
+# We have to import after the code that calculates src path
+ignore = E402
+
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist

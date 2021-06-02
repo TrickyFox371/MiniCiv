@@ -17,7 +17,7 @@ class vis_unit(vis_object):
         self.attacked = None
         self.return_image = False
 
-    def check(self, master = None):
+    def check(self, master=None):
         if self.return_image is True:
             time.sleep(0.1)
             self.update_image(self.tmp_img)

@@ -20,16 +20,18 @@ class vis_button(vis_object):
         self.textcoords = (10, 25 - delta)
         for i, txt in enumerate(self.text):
             self.textsurface, _ = font.render(txt, color)
-            self.image.blit(self.textsurface, (self.textcoords[0], self.textcoords[1] + i * self.linestep))
+            self.image.blit(self.textsurface, (self.textcoords[0],
+                            self.textcoords[1] + i * self.linestep))
 
-    def check_click(self, mouse, master = None):
-        if self.rect.collidepoint(mouse) and self.mask.get_at(self.local_coords(mouse)) == 1:
+    def check_click(self, mouse, master=None):
+        if self.rect.collidepoint(mouse) and \
+                self.mask.get_at(self.local_coords(mouse)) == 1:
             if master is not None:
                 self.action(master)
             else:
                 self.action()
 
-    def action(self, master = None):
+    def action(self, master=None):
         print('NOT IMPLEMENTED YET')
 
     def draw_text(self):
@@ -42,7 +44,9 @@ class vis_button(vis_object):
         self.textcoords = (10, 25 - delta)
         for i, txt in enumerate(text.split('\n')):
             label, _ = self.font.render(self.text[i], 0, WHITE)
-            self.image.blit(label, (self.textcoords[0], self.textcoords[1] + i * self.linestep))
+            self.image.blit(label, (self.textcoords[0],
+                            self.textcoords[1] + i * self.linestep))
             self.textsurface, _ = self.font.render(txt, color)
-            self.image.blit(self.textsurface, (self.textcoords[0], self.textcoords[1] + i * self.linestep))
+            self.image.blit(self.textsurface, (self.textcoords[0],
+                            self.textcoords[1] + i * self.linestep))
         self.text = text.split('\n')

@@ -1,5 +1,6 @@
 from src.units.creature import Creature
 
+
 class Spearman(Creature):
 
     def __init__(self):

@@ -1,6 +1,7 @@
 from src.units.building import Building
 from src.units.creatures.spearman import Spearman
 
+
 class Town_hall(Building):
 
     def __init__(self):

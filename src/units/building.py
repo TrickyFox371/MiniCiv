@@ -1,5 +1,6 @@
 from src.unit import Unit
 
+
 class Building(Unit):
 
     def __init__(self):

@@ -48,12 +48,10 @@ class Cell:
                                        (os.path.dirname
                                         (os.path.abspath(__file__)), '..'))
         if self.terrain in self.TERRAIN_IMAGES.keys():
-            cell_img = pygame.image.load(
-                        os.path.join
-                        (game_folder,
-                         self.TERRAIN_IMAGES[self.terrain])).convert()
+            cell_img = pygame.image.load(os.path.join(
+                game_folder,
+                self.TERRAIN_IMAGES[self.terrain])).convert()
         else:
-            cell_img = pygame.image.load(
-                        os.path.join(
-                         game_folder, 'res/base-hex.png')).convert()
+            cell_img = pygame.image.load(os.path.join(
+                game_folder, 'res/base-hex.png')).convert()
         self.vis_cell.update_image(cell_img)

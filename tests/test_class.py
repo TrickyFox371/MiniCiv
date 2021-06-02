@@ -1,4 +1,3 @@
-import pygame
 import os
 import sys
 sys.path.append(os.path.normpath(os.path.join
@@ -13,4 +12,3 @@ FPS = 30
 play = Game(WIDTH, HEIGHT, FPS)
 play.mainloop()
 play.quit()
-

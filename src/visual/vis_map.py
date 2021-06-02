@@ -33,7 +33,7 @@ class vis_map:
             for j in range(0, y):
                 if i % 2 == 1 and j == y - 1:
                     continue
-                cell = Cell(i, j, "") 
+                cell = Cell(i, j, "")
                 cell.create_vis_cell((coord_x, coord_y), self)
                 coord_x = coord_x + cell.vis_cell.x_size() * 3 // 2
                 list.append(cell)
@@ -122,8 +122,8 @@ class vis_map:
                     cell.vis_cell.move(move)
 
     def in_bounds(self, cell_x, cell_y):
-        return (0 <= cell_x < len(self.cells)
-                and 0 <= cell_y < len(self.cells[cell_x]))
+        return (0 <= cell_x < len(self.cells) and 0 <= cell_y < len(
+            self.cells[cell_x]))
 
     def set_gamestate(self, game_state):
         self.game_state = game_state
@@ -153,8 +153,9 @@ def generate_map(game_state: Game_state,
     blue_capital_coords = (random.randint(1, x - 2), random.randint(1, y - 2))
     while -4 <= red_capital_coords[0] - blue_capital_coords[0] <= 4 and\
           -4 <= red_capital_coords[1] - blue_capital_coords[1] <= 4:
-        blue_capital_coords = (random.randint(1, x - 1), random.randint(1, y - 2))
-    
+        blue_capital_coords = (random.randint(1, x - 1),
+                               random.randint(1, y - 2))
+
     red_stat.set_capital(red_capital_coords, gamemap)
     blue_stat.set_capital(blue_capital_coords, gamemap)
 
@@ -174,12 +175,13 @@ def generate_map(game_state: Game_state,
         banned_cells.add(unit.get_cell())
     gamemap.gen_water(banned_cells)
 
-    townhall_red_img = pygame.image.load(os.path.join
-                                        (game_folder, 'res/townhall_red.png')).convert()
-    townhall_blue_img = pygame.image.load(os.path.join
-                                         (game_folder, 'res/townhall_blue.png')).convert()
-    townhall_attacked = pygame.image.load(os.path.join
-                                          (game_folder, 'res/townhall_attacked.png')).convert()
+    townhall_red_img = pygame.image.load(os.path.join(game_folder,
+                                         'res/townhall_red.png')).convert()
+    townhall_blue_img = pygame.image.load(os.path.join(game_folder,
+                                          'res/townhall_blue.png')).convert()
+    townhall_attacked = pygame.image.load(
+        os.path.join(game_folder,
+                     'res/townhall_attacked.png')).convert()
     for building in red_stat.get_buildings():
         building.add_vis_unit(townhall_red_img)
         building.get_vis_unit().set_attacked(townhall_attacked)
@@ -195,12 +197,13 @@ def generate_map(game_state: Game_state,
             vis_cell.set_unit(building.vis_unit)
         building.vis_unit.set_immovable(True)
 
-    spearman_red_img = pygame.image.load(os.path.join
-                                     (game_folder, 'res/spearman_red.png')).convert()
-    spearman_blue_img = pygame.image.load(os.path.join
-                                     (game_folder, 'res/spearman_blue.png')).convert()
-    spearman_attacked = pygame.image.load(os.path.join
-                                     (game_folder, 'res/spearman_attacked.png')).convert()
+    spearman_red_img = pygame.image.load(os.path.join(game_folder,
+                                         'res/spearman_red.png')).convert()
+    spearman_blue_img = pygame.image.load(os.path.join(game_folder,
+                                          'res/spearman_blue.png')).convert()
+    spearman_attacked = pygame.image.load(
+        os.path.join(game_folder,
+                     'res/spearman_attacked.png')).convert()
     for unit in red_stat.get_units():
         unit.add_vis_unit(spearman_red_img)
         unit.get_vis_unit().set_attacked(spearman_attacked)

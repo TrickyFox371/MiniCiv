@@ -12,19 +12,29 @@ class vis_cell(vis_object):
         self.count = 0
         self.unit = None
 
-    def check_click(self, mouse, master = None):
+    def check_click(self, mouse, master=None):
         ''' Assumption in this function:
         1) The cells belongs to the map.
         2) Map stores the global state
         '''
-        if self.rect.collidepoint(mouse) and self.mask.get_at(self.local_coords(mouse)) == 1:
+        if self.rect.collidepoint(mouse) and\
+                self.mask.get_at(self.local_coords(mouse)) == 1:
             x, y = self.map.get_coords(self)
             if self.unit is None:
                 for cell in self.map.neighbours(x, y):
-                    if cell.vis_cell.get_unit() is not None and cell.vis_cell.get_unit().moving() is True\
-                            and cell.vis_cell.get_unit().is_immovable() is False\
-                            and cell.vis_cell.get_unit().get_unit().is_possible_cell\
-                                (self.map.get_cell(x, y).get_terrain()):
+                    allowed = True
+                    unit = cell.vis_cell.get_unit()
+                    if unit is None:
+                        allowed = False
+                    else:
+                        if unit.moving() is False:
+                            allowed = False
+                        if unit.is_immovable() is True:
+                            allowed = False
+                        if not unit.get_unit().is_possible_cell(
+                                self.map.get_cell(x, y).get_terrain()):
+                            allowed = False
+                    if allowed:
                         self.set_unit(cell.vis_cell.get_unit())
                         self.get_unit().get_unit().add_traveled_cells()
                         self.get_unit().get_unit().set_cell((x, y))
@@ -33,11 +43,15 @@ class vis_cell(vis_object):
                         break
             else:
                 game_state = self.map.get_gamestate()
-                if (self.unit.get_unit().get_country() ==
-                   game_state.get_turn() and
-                   self.unit.is_immovable() is False):
-                    if (self.unit.get_unit().get_traveled_cells() <
-                       self.unit.get_unit().get_speed()):
+                allowed = True
+                if self.unit.get_unit().get_country() != game_state.get_turn():
+                    allowed = False
+                if self.unit.is_immovable() is True:
+                    allowed = False
+                if allowed:
+                    steps_done = self.unit.get_unit().get_traveled_cells()
+                    limit = self.unit.get_unit().get_speed()
+                    if steps_done < limit:
                         self.unit.set_move(True)
                     else:
                         print(f"{self.unit.get_unit().get_country()} unit "
@@ -45,10 +59,17 @@ class vis_cell(vis_object):
                 else:
                     # Maybe other unit is attacking this
                     for cell in self.map.neighbours(x, y):
-                        if (cell.vis_cell.get_unit() is not None and
-                           cell.vis_cell.get_unit().moving() is True and
-                           cell.vis_cell.get_unit().get_unit().get_country() ==
-                           game_state.get_turn()):
+                        allowed = True
+                        unit = cell.vis_cell.get_unit()
+                        if unit is None:
+                            allowed = False
+                        else:
+                            if unit.moving() is False:
+                                allowed = False
+                            country = unit.get_unit().get_country()
+                            if country != game_state.get_turn():
+                                allowed = False
+                        if allowed:
                             defending_unit = self.unit
                             attacking_unit = cell.vis_cell.get_unit()
 
@@ -64,8 +85,8 @@ class vis_cell(vis_object):
 
             for line in self.map.get_cells():
                 for cell in line:
-                    if (cell.vis_cell.get_unit() is not None and
-                       cell.vis_cell != self):
+                    unit = cell.vis_cell.get_unit()
+                    if (unit is not None and cell.vis_cell != self):
                         cell.vis_cell.get_unit().set_move(False)
 
     def x_size(self):
@@ -75,7 +96,8 @@ class vis_cell(vis_object):
         return self.rect.bottom - self.rect.top
 
     def move(self, move):
-        self.rect.center = (self.rect.center[0] + move[0], self.rect.center[1] + move[1])
+        self.rect.center = (self.rect.center[0] + move[0],
+                            self.rect.center[1] + move[1])
         if self.unit is not None:
             self.unit.set_center(self.rect.centerx, self.rect.centery)
 
