@@ -57,7 +57,7 @@ class Game:
         all_sprites = pygame.sprite.LayeredUpdates()
 
         cursor_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/cursor1_rs2.png')).convert()
+                                       'mini_civ', 'res', 'cursor1_rs2.png')).convert()
 
         cursor = vis_cursor(cursor_img)
 
@@ -69,41 +69,41 @@ class Game:
         self.colors = {'red': BLUE, 'blue': RED}
 
         button_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/frame_button1.png')).convert()
+                                       'mini_civ', 'res', 'frame_button1.png')).convert()
         self.reset_map_button = vis_button(740, 50, _('Reset map'),
                                            button_img)
         self.reset_map_button.action = self.reset_map
         all_sprites.add(self.reset_map_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/frame_button1.png')).convert()
+                                       'mini_civ', 'res', 'frame_button1.png')).convert()
         self.end_turn_button = vis_button(740, 180, _('End turn'), button_img)
         self.end_turn_button.action = self.end_turn
         all_sprites.add(self.end_turn_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/frame_button1.png')).convert()
+                                       'mini_civ', 'res', 'frame_button1.png')).convert()
         self.red_score_button = vis_button(740, 245, _('Red: ') + '100',
                                            button_img)
         self.red_score_button.action = self.do_nothing
         all_sprites.add(self.red_score_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/frame_button1.png')).convert()
+                                       'mini_civ', 'res', 'frame_button1.png')).convert()
         self.blue_score_button = vis_button(740, 310, _('Blue: ') + '100',
                                             button_img)
         self.blue_score_button.action = self.do_nothing
         all_sprites.add(self.blue_score_button)
 
         button_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/frame_button1.png')).convert()
+                                       'mini_civ', 'res', 'frame_button1.png')).convert()
         self.turn_button = vis_button(740, 375, _('Red turn'),
                                       button_img, RED)
         self.turn_button.action = self.do_nothing
         all_sprites.add(self.turn_button)
 
         frame_img = pygame.image.load(os.path.join(self.game_folder,
-                                      'res/frame_global5.png')).convert()
+                                      'mini_civ', 'res', 'frame_global5.png')).convert()
         self.global_frame = vis_frame(360, 325, frame_img,
                                       self.game_state.get_gamemap())
         all_sprites.add(self.global_frame)
@@ -111,7 +111,7 @@ class Game:
         self.running = True
 
         button_img = pygame.image.load(os.path.join(self.game_folder,
-                                       'res/frame_button1.png')).convert()
+                                       'mini_civ', 'res', 'frame_button1.png')).convert()
         self.exit_button = vis_button(740, 115, _('Exit'), button_img)
         self.exit_button.action = self.exit
         all_sprites.add(self.exit_button)
@@ -180,7 +180,7 @@ class Game:
         # return frame to its original state after possible win
         all_sprites.remove_sprites_of_layer(3)
         frame_img = pygame.image.load(os.path.join(self.game_folder,
-                                      'res/frame_global5.png')).convert()
+                                      'mini_civ', 'res', 'frame_global5.png')).convert()
         self.global_frame = vis_frame(360, 325, frame_img,
                                       self.game_state.get_gamemap())
         all_sprites.add(self.global_frame)

@@ -8,10 +8,10 @@ class Cell:
     """Represents cell."""
 
     # Relative to the main folder
-    TERRAIN_IMAGES = {"ice": "res/ice-hex.png",
-                      "plains": "res/plains-hex.png",
-                      "desert": "res/desert-hex.png",
-                      "water": "res/water-hex.png"}
+    TERRAIN_IMAGES = {"ice": os.path.join("mini_civ", "res", "ice-hex.png"),
+                      "plains": os.path.join("mini_civ", "res", "plains-hex.png"),
+                      "desert": os.path.join("mini_civ", "res", "desert-hex.png"),
+                      "water": os.path.join("mini_civ", "res", "water-hex.png")}
 
     def __init__(self, x, y, terrain):
         """Initialise cell.
@@ -79,7 +79,7 @@ class Cell:
                                         (os.path.abspath(__file__)), '..'))
         cell_img = pygame.image.load(os.path.join
                                      (game_folder,
-                                      'res/base-hex.png')).convert()
+                                      'mini_civ', 'res', 'base-hex.png')).convert()
         self.vis_cell = vis_cell(vis_cell_coords[0], vis_cell_coords[1],
                                  cell_img, vis_map)
 
@@ -96,5 +96,5 @@ class Cell:
                 self.TERRAIN_IMAGES[self.terrain])).convert()
         else:
             cell_img = pygame.image.load(os.path.join(
-                game_folder, 'res/base-hex.png')).convert()
+                game_folder, 'mini_civ', 'res', 'base-hex.png')).convert()
         self.vis_cell.update_image(cell_img)
