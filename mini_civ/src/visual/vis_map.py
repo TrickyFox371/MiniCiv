@@ -274,10 +274,14 @@ def generate_map(game_state: Game_state,
         banned_cells.add(unit.get_cell())
     gamemap.gen_water(banned_cells)
 
-    townhall_red_img = pygame.image.load(os.path.join(game_folder,
-                                         'mini_civ', 'res', 'townhall_red.png')).convert()
-    townhall_blue_img = pygame.image.load(os.path.join(game_folder,
-                                          'mini_civ', 'res', 'townhall_blue.png')).convert()
+    townhall_red_img = pygame.image.load(os.path.join(
+                                         game_folder,
+                                         'mini_civ', 'res',
+                                         'townhall_red.png')).convert()
+    townhall_blue_img = pygame.image.load(os.path.join(
+                                          game_folder,
+                                          'mini_civ', 'res',
+                                          'townhall_blue.png')).convert()
     townhall_attacked = pygame.image.load(
         os.path.join(game_folder,
                      'mini_civ', 'res', 'townhall_attacked.png')).convert()
@@ -296,10 +300,14 @@ def generate_map(game_state: Game_state,
             vis_cell.set_unit(building.vis_unit)
         building.vis_unit.set_immovable(True)
 
-    spearman_red_img = pygame.image.load(os.path.join(game_folder,
-                                         'mini_civ', 'res', 'spearman_red.png')).convert()
-    spearman_blue_img = pygame.image.load(os.path.join(game_folder,
-                                          'mini_civ', 'res', 'spearman_blue.png')).convert()
+    spearman_red_img = pygame.image.load(os.path.join(
+                                         game_folder,
+                                         'mini_civ', 'res',
+                                         'spearman_red.png')).convert()
+    spearman_blue_img = pygame.image.load(os.path.join(
+                                          game_folder,
+                                          'mini_civ', 'res',
+                                          'spearman_blue.png')).convert()
     spearman_attacked = pygame.image.load(
         os.path.join(game_folder,
                      'mini_civ', 'res', 'spearman_attacked.png')).convert()

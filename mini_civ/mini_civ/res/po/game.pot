@@ -17,45 +17,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: src/game.py:41
+#: mini_civ/src/game.py:54
 msgid "MiniCiv"
 msgstr ""
 
-#: src/game.py:57
+#: mini_civ/src/game.py:57
 msgid "Reset map"
 msgstr ""
 
-#: src/game.py:62
+#: mini_civ/src/game.py:62
 msgid "End turn"
 msgstr ""
 
-#: src/game.py:67 src/game.py:107 src/game.py:138
+#: mini_civ/src/game.py:67 mini_civ/src/game.py:107 mini_civ/src/game.py:138
 msgid "Red: "
 msgstr ""
 
-#: src/game.py:72 src/game.py:109 src/game.py:139
+#: mini_civ/src/game.py:72 mini_civ/src/game.py:109 mini_civ/src/game.py:139
 msgid "Blue: "
 msgstr ""
 
-#: src/game.py:77 src/game.py:113 src/game.py:137
+#: mini_civ/src/game.py:77 mini_civ/src/game.py:113 mini_civ/src/game.py:137
 msgid "Red turn"
 msgstr ""
 
-#: src/game.py:88
+#: mini_civ/src/game.py:88
 msgid "Exit"
 msgstr ""
 
-#: src/game.py:111
+#: mini_civ/src/game.py:111
 msgid "Blue turn"
 msgstr ""
 
-#: src/game.py:191
+#: mini_civ/src/game.py:191
 msgid ""
 "Blue is\n"
 "defeated!"
 msgstr ""
 
-#: src/game.py:193
+#: mini_civ/src/game.py:193
 msgid ""
 "Red is\n"
 "defeated!"

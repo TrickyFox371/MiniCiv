@@ -2,6 +2,6 @@
 
 builtins = _, ngettext
 # We have to import after the code that calculates src path
-ignore = E402
+ignore = E402, F401
 
 exclude = .git,__pycache__,docs/source/conf.py,old,build,dist

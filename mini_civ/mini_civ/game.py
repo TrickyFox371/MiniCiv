@@ -1,3 +1,4 @@
+"""Game start module."""
 import os
 import sys
 sys.path.append(os.path.normpath(os.path.join
@@ -5,7 +6,9 @@ sys.path.append(os.path.normpath(os.path.join
 
 from src.game import Game
 
+
 def start_game():
+    """Start the game with standard parameters."""
     WIDTH = 800
     HEIGHT = 650
     FPS = 30
@@ -13,3 +16,6 @@ def start_game():
     play = Game(WIDTH, HEIGHT, FPS)
     play.mainloop()
     play.quit()
+
+
+start_game()
