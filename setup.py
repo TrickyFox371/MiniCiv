@@ -22,7 +22,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "mini_civ"},
-    package_data={"": ["res/*", "*.png"]},
+    package_data={"": ["res/*", 'res/po/*/*/*', "*.png"]},
     packages=setuptools.find_packages(where="mini_civ"),
     python_requires=">=3.6",
     install_requires="pygame",
